@@ -1,0 +1,8 @@
+<package>
+    <description brief="Interface class in C++ to allow data access from serial devices">
+        Interface class in C++ to allow data access from devices using serial protocols such as I2C, SPI, UART etc.
+    </description>
+    <maintainer>Mateus Menezes</maintainer>
+    <license>MIT</license>
+    <url>https://github.com/mateusmenezes95/serial_device_interface</url>
+</package>
