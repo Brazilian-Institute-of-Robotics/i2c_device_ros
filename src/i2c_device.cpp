@@ -99,14 +99,14 @@ uint16_t I2CDevice::readBitOfWord(uint8_t reg_addr, uint8_t bit_num) {
 
 uint8_t I2CDevice::readBitsOfByte(uint8_t reg_addr, uint8_t bit_start, uint8_t length) {
   this->checkBitsRange<uint8_t>(bit_start, length);
-  uint8_t mask = this->generateBitMask<uint8_t>(bit_start, length);
+  uint8_t mask = this->generateBitMaskOfOnes<uint8_t>(bit_start, length);
   uint8_t byte_read = this->readByte(reg_addr);
   return (byte_read & mask) >> bit_start;
 }
 
 uint16_t I2CDevice::readBitsOfWord(uint8_t reg_addr, uint8_t bit_start, uint8_t length) {
   this->checkBitsRange<uint16_t>(bit_start, length);
-  uint16_t mask = this->generateBitMask<uint16_t>(bit_start, length);
+  uint16_t mask = this->generateBitMaskOfOnes<uint16_t>(bit_start, length);
   uint16_t byte_read = this->readWord(reg_addr);
   return (byte_read & mask) >> bit_start;
 }

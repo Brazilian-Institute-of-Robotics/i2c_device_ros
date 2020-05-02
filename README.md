@@ -1,2 +1,2 @@
-# serial_device_interface
-Interface class to allow data access from devices using serial protocols such as I2C, SPI, UART etc.
+# I2C Device
+C++ class to read/write from/to I2C devices. This package abstracts bit and byte I2C R/W functions into a convenient class
