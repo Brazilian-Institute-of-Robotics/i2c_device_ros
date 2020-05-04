@@ -100,7 +100,7 @@ class I2CDevice {
    * @param bit_num Bit position to read (0-7)
    * @throw std::runtime_error If bit num is out of range allowed or read operation fails
    */
-  uint8_t readBitOfByte(uint8_t reg_addr, uint8_t bit_num);
+  uint8_t readByteBit(uint8_t reg_addr, uint8_t bit_num);
 
 
   /** 
@@ -110,7 +110,7 @@ class I2CDevice {
    * @param bit_num Bit position to read (0-15)
    * @throw std::runtime_error If bit num is out of range allowed or read operation fails
    */
-  uint16_t readBitOfWord(uint8_t reg_addr, uint8_t bit_num);
+  uint16_t readWordBit(uint8_t reg_addr, uint8_t bit_num);
 
   /** 
    * @brief Read multiple bits from an 8-bit device register.
@@ -121,7 +121,7 @@ class I2CDevice {
    * @throw std::runtime_error If bits range is invalid or read operation fails
    * @return Right-aligned value (i.e. '101' read from any bit_start position wi1ll equal 0x05)
    */
-  uint8_t readBitsOfByte(uint8_t reg_addr, uint8_t bit_start, uint8_t length);
+  uint8_t readByteBits(uint8_t reg_addr, uint8_t bit_start, uint8_t length);
 
   /** 
    * @brief Read multiple bits from a 16-bit device register.
@@ -132,7 +132,7 @@ class I2CDevice {
    * @throw std::runtime_error If bits range is invalid or read operation fails1
    * @return Right-aligned value (i.e. '101' read from any bit_start position will equal 0x05)
    */
-  uint16_t readBitsOfWord(uint8_t reg_addr, uint8_t bit_start, uint8_t length);
+  uint16_t readWordBits(uint8_t reg_addr, uint8_t bit_start, uint8_t length);
 
   /** 
    * @brief Write multiple bytes to an 8-bit device register.
@@ -142,7 +142,7 @@ class I2CDevice {
    * @param data Buffer to copy new data from
    * @throw std::runtime_error Thrown if write operation fails
    */
-  void writeBytes(uint8_t reg_addr, uint8_t length, const uint8_t const *data);
+  void writeBytes(uint8_t reg_addr, uint8_t length, const uint8_t *data);
 
   /** 
    * @brief Write multiple words to a 16-bit device register.
@@ -152,7 +152,7 @@ class I2CDevice {
    * @param data Buffer to copy new data from
    * @throw std::runtime_error Thrown if write operation fails
    */
-  void writeWords(uint8_t reg_addr, uint8_t length, const uint16_t const *data);
+  void writeWords(uint8_t reg_addr, uint8_t length, const uint16_t *data);
 
   /** 
    * @brief Write single byte to an 8-bit device register.

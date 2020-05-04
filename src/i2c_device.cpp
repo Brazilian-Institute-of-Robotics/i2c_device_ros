@@ -87,24 +87,24 @@ uint16_t I2CDevice::readWord(uint8_t reg_addr) {
   return word_read;
 }
 
-uint8_t I2CDevice::readBitOfByte(uint8_t reg_addr, uint8_t bit_num) {
+uint8_t I2CDevice::readByteBit(uint8_t reg_addr, uint8_t bit_num) {
   this->checkBitNumber<uint8_t>(bit_num);
   return this->readByte(reg_addr) & (1 << bit_num);
 }
 
-uint16_t I2CDevice::readBitOfWord(uint8_t reg_addr, uint8_t bit_num) {
+uint16_t I2CDevice::readWordBit(uint8_t reg_addr, uint8_t bit_num) {
   this->checkBitNumber<uint16_t>(bit_num);
   return this->readWord(reg_addr) & (1 << bit_num);
 }
 
-uint8_t I2CDevice::readBitsOfByte(uint8_t reg_addr, uint8_t bit_start, uint8_t length) {
+uint8_t I2CDevice::readByteBits(uint8_t reg_addr, uint8_t bit_start, uint8_t length) {
   this->checkBitsRange<uint8_t>(bit_start, length);
   uint8_t mask = this->generateBitMaskOfOnes<uint8_t>(bit_start, length);
   uint8_t byte_read = this->readByte(reg_addr);
   return (byte_read & mask) >> bit_start;
 }
 
-uint16_t I2CDevice::readBitsOfWord(uint8_t reg_addr, uint8_t bit_start, uint8_t length) {
+uint16_t I2CDevice::readWordBits(uint8_t reg_addr, uint8_t bit_start, uint8_t length) {
   this->checkBitsRange<uint16_t>(bit_start, length);
   uint16_t mask = this->generateBitMaskOfOnes<uint16_t>(bit_start, length);
   uint16_t byte_read = this->readWord(reg_addr);
@@ -112,7 +112,7 @@ uint16_t I2CDevice::readBitsOfWord(uint8_t reg_addr, uint8_t bit_start, uint8_t 
 }
 
 
-void I2CDevice::writeBytes(uint8_t reg_addr, uint8_t length, const uint8_t* const data) {
+void I2CDevice::writeBytes(uint8_t reg_addr, uint8_t length, const uint8_t* data) {
   uint8_t *out_buf = new uint8_t[length + 1];
   out_buf[0] = reg_addr;
   memcpy(&out_buf[1], data, length);
@@ -125,7 +125,7 @@ void I2CDevice::writeBytes(uint8_t reg_addr, uint8_t length, const uint8_t* cons
   delete[] out_buf;
 }
 
-void I2CDevice::writeWords(uint8_t reg_addr, uint8_t length, const uint16_t* const data) {
+void I2CDevice::writeWords(uint8_t reg_addr, uint8_t length, const uint16_t* data) {
   size_t out_buf_length = (2 * length) + 1;
   uint8_t *out_buf = new uint8_t[out_buf_length];
   out_buf[0] = reg_addr;
