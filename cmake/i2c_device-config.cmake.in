@@ -1,0 +1,7 @@
+find_library(12c_device_LIBRARY 12c_device
+    PATHS "@CMAKE_INSTALL_PREFIX@/lib"
+)
+
+set(12c_device_LIBRARIES ${12c_device_LIBRARY})
+set(12c_device_LIB ${12c_device_LIBRARY})
+set(12c_device_INCLUDE_DIRS @CMAKE_INSTALL_PREFIX@/include)
