@@ -34,9 +34,8 @@ THE SOFTWARE.
 #include <cerrno>
 #include <cstring>
 #include <sstream>
-#include <stdexcept>
 
-#include "i2c_device/i2c_device.hpp"
+#include "i2c_device_ros/i2c_device.hpp"
 
 I2CDevice::I2CDevice(uint8_t dev_addr) : dev_addr_(dev_addr) {}
 
@@ -155,6 +154,14 @@ void I2CDevice::setByteBit(uint8_t reg_addr, uint8_t bit_num) {
   this->checkBitNumber<uint8_t>(bit_num);
   uint8_t byte_read = this->readByte(reg_addr);
   return writeByte(reg_addr, byte_read | (1 << bit_num));
+}
+
+void I2CDevice::setByteBit(uint8_t reg_addr, uint8_t bit_num, bool value) {
+  if (value == true) {
+    this->setByteBit(reg_addr, bit_num);
+    return;
+  }
+  this->clearByteBit(reg_addr, bit_num);
 }
 
 void I2CDevice::clearByteBit(uint8_t reg_addr, uint8_t bit_num) {

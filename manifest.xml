@@ -1,8 +1,0 @@
-<package>
-    <description brief="C++ class to read/write from/to I2C devices">
-      Abstracts bit and byte I2C R/W functions into a convenient class
-    </description>
-    <maintainer>Mateus Menezes</maintainer>
-    <license>MIT</license>
-    <url>https://github.com/mateusmenezes95/i2c_device.git</url>
-</package>

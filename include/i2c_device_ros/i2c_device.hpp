@@ -29,6 +29,7 @@ THE SOFTWARE.
 #ifndef I2C_DEVICE_HPP_
 #define I2C_DEVICE_HPP_
 
+#include <stdexcept>
 #include <cstdint>
 #include <string>
 #include <limits>
@@ -180,6 +181,7 @@ class I2CDevice {
    * @throw std::runtime_error If bit num is out of range allowed or write in register operation fails
    */
   void setByteBit(uint8_t reg_addr, uint8_t bit_num);
+  void setByteBit(uint8_t reg_addr, uint8_t bit_num, bool value);
 
   /** 
    * @brief Clear a single bit in an 8-bit device register.
