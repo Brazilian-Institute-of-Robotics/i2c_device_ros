@@ -76,7 +76,7 @@ class I2CDevice {
    * @param data Buffer to store read data in
    * @throw std::runtime_error Thrown if read operation fails
    */
-  void readWords(uint8_t reg_addr, uint8_t length, uint16_t *dat);
+  void readWords(uint8_t reg_addr, uint8_t length, uint16_t *data);
 
   /** 
    * @brief Read single byte from an 8-bit device register.
@@ -181,7 +181,6 @@ class I2CDevice {
    * @throw std::runtime_error If bit num is out of range allowed or write in register operation fails
    */
   void setByteBit(uint8_t reg_addr, uint8_t bit_num);
-  void setByteBit(uint8_t reg_addr, uint8_t bit_num, bool value);
 
   /** 
    * @brief Clear a single bit in an 8-bit device register.
@@ -233,6 +232,26 @@ class I2CDevice {
    * or write the new value in register fails
    */
   void setWordBits(uint8_t reg_addr, uint8_t bit_start, uint8_t length, uint16_t data);
+
+  /**
+   * @brief Change the value of a byte bit
+   * 
+   * @param reg_addr Register reg_addr to write to
+   * @param bit_num Bit position to clear (0-7)
+   * @param bit_value Value to be assigned to the bit 
+   * @throw std::runtime_error If bit num is out of range allowed or write register operation fails
+   */
+  void changeByteBitValue(uint8_t reg_addr, uint8_t bit_num, bool bit_value);
+
+  /**
+   * @brief Change the value of a word bit
+   * 
+   * @param reg_addr Register reg_addr to write to
+   * @param bit_num Bit position to clear (0-15)
+   * @param bit_value Value to be assigned to the bit
+   * @throw std::runtime_error If bit num is out of range allowed or write in register operation fails
+   */
+  void changeWordBitValue(uint8_t reg_addr, uint8_t bit_num, bool bit_value);
 
  private:
   /** File descriptor of I2C file descriptor **/

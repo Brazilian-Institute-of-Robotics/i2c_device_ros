@@ -156,14 +156,6 @@ void I2CDevice::setByteBit(uint8_t reg_addr, uint8_t bit_num) {
   return writeByte(reg_addr, byte_read | (1 << bit_num));
 }
 
-void I2CDevice::setByteBit(uint8_t reg_addr, uint8_t bit_num, bool value) {
-  if (value == true) {
-    this->setByteBit(reg_addr, bit_num);
-    return;
-  }
-  this->clearByteBit(reg_addr, bit_num);
-}
-
 void I2CDevice::clearByteBit(uint8_t reg_addr, uint8_t bit_num) {
   this->checkBitNumber<uint8_t>(bit_num);
   uint8_t byte_read = this->readByte(reg_addr);
@@ -200,6 +192,22 @@ void I2CDevice::throwIOSystemError(const std::string& msg) {
   std::stringstream error_msg;
   error_msg << msg << ": " << std::strerror(errno);
   throw std::runtime_error(error_msg.str());
+}
+
+void I2CDevice::changeByteBitValue(uint8_t reg_addr, uint8_t bit_num, bool bit_value) {
+  if (bit_value == 1) {
+    this->setByteBit(reg_addr, bit_num);
+    return;
+  }
+  this->clearByteBit(reg_addr, bit_num);
+}
+
+void I2CDevice::changeWordBitValue(uint8_t reg_addr, uint8_t bit_num, bool bit_value) {
+  if (bit_value == 1) {
+    this->setWordBit(reg_addr, bit_num);
+    return;
+  }
+  this->clearWordBit(reg_addr, bit_num);
 }
 
 I2CDevice::~I2CDevice() {
