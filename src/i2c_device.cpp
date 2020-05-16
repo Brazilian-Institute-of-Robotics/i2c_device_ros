@@ -37,9 +37,11 @@ THE SOFTWARE.
 
 #include "i2c_device_ros/i2c_device.hpp"
 
-I2CDevice::I2CDevice(uint8_t dev_addr) : dev_addr_(dev_addr) {}
+I2CDevice::I2CDevice() {}
 
-void I2CDevice::openI2CBus(const std::string& bus_uri) {
+void I2CDevice::openI2CBus(const std::string& bus_uri, uint8_t dev_addr) {
+  dev_addr_ = dev_addr;
+
   if ((i2c_bus_fd_ = open(bus_uri.c_str(), O_RDWR)) < 0)
     throwIOSystemError("Error obtaining I2C system file descriptor");
 

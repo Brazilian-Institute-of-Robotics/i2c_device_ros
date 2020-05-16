@@ -39,9 +39,8 @@ class I2CDevice {
   /**
     * @brief Construct a new I2CDevice object
     * 
-    * @param dev_addr Address of the I2C device to communicate
     */
-  explicit I2CDevice(uint8_t dev_addr);
+  I2CDevice();
 
   /**
    * @brief Destroy the I2CDevice object
@@ -53,10 +52,11 @@ class I2CDevice {
    * @brief Open I2C bus
    * 
    * @param bus_uri The name of the I2C bus uri
+   * @param dev_addr Address of the I2C device to communicate
    * @throw std::runtime_error Thrown if an error occurs when obtaining a file
    * descriptor for I2C read/write operations
    */
-  void openI2CBus(const std::string& bus_uri);
+  void openI2CBus(const std::string& bus_uri, uint8_t dev_addr);
 
   /** 
    * @brief Read multiple bytes from an 8-bit device register.
