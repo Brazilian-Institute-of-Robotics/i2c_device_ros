@@ -65,13 +65,13 @@ void I2CDevice::readWords(uint8_t reg_addr, uint8_t length, uint16_t *data) {
   int in_buf_length = length * 2;
   uint8_t *in_buf = new uint8_t[in_buf_length];
 
-  int bytes_received = read(i2c_bus_fd_, data, in_buf_length);
+  int bytes_received = read(i2c_bus_fd_, in_buf, in_buf_length);
   if (bytes_received < 0 || bytes_received != in_buf_length) {
     delete[] in_buf;
     throwIOSystemError("Failed to read from the I2C bus");
   }
 
-  for (size_t i = 0; i < length; i++) data[i] = (in_buf[i] << 8) | in_buf[i+1];
+  for (size_t i = 0, j = 0; j < length; i += 2, j++) data[j] = (in_buf[i] << 8) | in_buf[i+1];
 
   delete[] in_buf;
 }
