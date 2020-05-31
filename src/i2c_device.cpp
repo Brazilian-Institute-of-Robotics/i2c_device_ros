@@ -71,7 +71,7 @@ void I2CDevice::readWords(uint8_t reg_addr, uint8_t length, uint16_t *data) {
     throwIOSystemError("Failed to read from the I2C bus");
   }
 
-  for (size_t i = 0, j = 0; j < length; i += 2, j++) data[j] = (in_buf[i] << 8) | in_buf[i+1];
+  for (size_t i = 0; i < length; i++) data[i] = (in_buf[i*2] << 8) | in_buf[i*2+1];
 
   delete[] in_buf;
 }
@@ -127,19 +127,15 @@ void I2CDevice::writeBytes(uint8_t reg_addr, uint8_t length, const uint8_t* data
 }
 
 void I2CDevice::writeWords(uint8_t reg_addr, uint8_t length, const uint16_t* data) {
-  size_t out_buf_length = (2 * length) + 1;
+  size_t out_buf_length = 2 * length;
   uint8_t *out_buf = new uint8_t[out_buf_length];
-  out_buf[0] = reg_addr;
 
-  for (size_t i = 1; i <= length; i++) {
-    out_buf[i] = data[i] >> 8;
-    out_buf[i+1] = data[i];
+  for (size_t i = 0; i < length; i++) {
+    out_buf[i*2] = data[i] >> 8;
+    out_buf[i*2+1] = data[i] >> 0;
   }
 
-  if (write(i2c_bus_fd_, out_buf, out_buf_length) < 0) {
-    delete[] out_buf;
-    throwIOSystemError("Failed to write to the I2C bus");
-  }
+  this->writeBytes(reg_addr, out_buf_length, out_buf);
 
   delete[] out_buf;
 }
