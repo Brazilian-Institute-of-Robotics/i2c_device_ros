@@ -34,3 +34,7 @@
 # Documentation folder
 html/
 latex/
+
+install/
+log/
+build/
