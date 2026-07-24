@@ -15,23 +15,20 @@
 cmake_minimum_required(VERSION 3.12)
 project(i2c_device_ros)
 
-# Default to C++14
-if(NOT CMAKE_CXX_STANDARD)
-    set(CMAKE_CXX_STANDARD 17)
-endif()
-
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
 find_package(ament_cmake REQUIRED)
 
-include_directories(
-  include
-)
-
 add_library(${PROJECT_NAME} SHARED
   src/i2c_device.cpp
+)
+
+target_include_directories(${PROJECT_NAME}
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
 )
 
 ament_export_targets(${PROJECT_NAME} HAS_LIBRARY_TARGET)
@@ -43,7 +40,6 @@ install(
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib
   RUNTIME DESTINATION bin
-  INCLUDES DESTINATION include
 )
 
 install(
