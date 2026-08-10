@@ -34,6 +34,22 @@ target_include_directories(${PROJECT_NAME}
 ament_export_targets(${PROJECT_NAME} HAS_LIBRARY_TARGET)
 ament_export_include_directories(include)
 
+add_executable(i2c_device
+  src/i2c_device.cpp
+  src/main.cpp
+)
+
+target_include_directories(i2c_device
+  PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+)
+
+install(TARGETS
+  i2c_device
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 install(
   TARGETS ${PROJECT_NAME}
   EXPORT ${PROJECT_NAME}
