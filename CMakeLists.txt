@@ -37,6 +37,7 @@ ament_export_include_directories(include)
 add_executable(i2c_device
   src/i2c_device.cpp
   src/main.cpp
+  src/water.cpp
 )
 
 target_include_directories(i2c_device
