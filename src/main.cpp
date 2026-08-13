@@ -7,9 +7,9 @@ int main(int argc, char* argv[])
 {
   int id = std::stoi(argv[1], nullptr, 16);
   I2CDevice i2c;
-  i2c.openI2CBus("/dev/i2c-4", id);
-  uint16_t data[6];
-  i2c.readWords(0xFD, 6, data);
+  i2c.openI2CBus("/dev/i2c-1", id);
+  uint8_t data[6];
+  i2c.readBytes(0xFD, 6, data);
   uint16_t raw_temperature = (static_cast<uint16_t>(data[0]) << 8) | data[1];
   uint16_t raw_humidity = (static_cast<uint16_t>(data[3]) << 8) | data[4];
   double temperature = -45.0 + 175.0 * raw_temperature / 65535.0;

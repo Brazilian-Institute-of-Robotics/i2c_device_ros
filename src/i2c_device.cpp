@@ -54,6 +54,7 @@ void I2CDevice::openI2CBus(const std::string& bus_uri, uint8_t dev_addr) {
 
 void I2CDevice::readBytes(uint8_t reg_addr, uint8_t length, uint8_t *data) {
   if (write(i2c_bus_fd_, &reg_addr, 1) < 0) throwIOSystemError("Failed to write to the I2C bus");
+  usleep(10000); // Sleep one second before reading to avoid failure
 
   int bytes_received = read(i2c_bus_fd_, data, length);
   if (bytes_received < 0 || bytes_received != length) throwIOSystemError("Failed to read from the I2C bus");
