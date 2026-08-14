@@ -30,9 +30,14 @@ int main(int argc, char* argv[])
 
   uint8_t raw[2];
   // Read conversion register
-  i2c.readBytes(0x00, 2, raw);
+  i2c.readBytes(0x00, 6, raw);
   uint16_t result = (static_cast<uint16_t>(raw[0]) << 8) | raw[1];
+  std::cout << "ADC: " << result << std::endl;
+  if (result > 32767){
+    result -= 65536;
+  }
+
   double out = result * 4.096 / 32768.0;
-  std::cout << "Voltage: " << result << std::endl;
+  std::cout << "Voltage: " << out << std::endl;
   return 0;
 }
